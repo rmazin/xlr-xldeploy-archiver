@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #XL Release variable persistence off plugin
 
 ## Preface
@@ -19,3 +20,7 @@ Copy the plugin JAR file into the `SERVER_HOME/plugins` directory of XL Release.
 # xlr-xl-pluginupdater
 
 A template that updates XLD or XLR instances, this plugin will compare new and existing plugins and update them.
+=======
+# xlr-xldeploy-archiver
+Archives Executed Tasks in XL Deploy
+>>>>>>> 6da163f0e3744fdfdf7093c5a184879e4d25aaf2
