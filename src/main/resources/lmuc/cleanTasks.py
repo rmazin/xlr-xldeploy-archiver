@@ -32,21 +32,23 @@ tree = et.fromstring(content)
 for elem in tree.findall('task'):
     #print "ELEMENT: ", elem
     d = elem.attrib #create python dictionary from tasks
-    print "DICT: ", elem.attrib
+    print "TASK INFO: ", elem.attrib
 
     for key, value in d.iteritems():
-        print key, value
-        if value == 'EXECUTED': #find the tasks in an Executed state
+        #print key, value
+        if key == 'state':
+            if value == 'EXECUTED': #find the tasks in an Executed state
 
-            archiveId = d['id']
-            archiveURL = '%s/deployit/tasks/v2/%s/archive' % (xldeployServer['url'], d['id'])
-            archiveU = archiveURL.replace('@http://', "@")
-            r = requests.post(archiveU, auth=(xldeployServer['username'], xldeployServer['password'])) #Archive the tasks marked as EXECUTED
+                archiveId = d['id']
+                archiveState = d['state']
+                archiveURL = '%s/deployit/tasks/v2/%s/archive' % (xldeployServer['url'], archiveId) #API URL to post to archive
+                archiveU = archiveURL.replace('@http://', "@") # fix bug where extra http:// is added to URL based on CI setting
+                r = requests.post(archiveU, auth=(xldeployServer['username'], xldeployServer['password'])) #Archive the tasks marked as EXECUTED
 
-            print archiveId
+                #print archiveId
 
-            print "Archiving the EXECUTED task with id %s!!\n" % (archiveId)
-        else:
-            print "NOTHING TO ARCHIVE!!!\n"
+                print "Archiving a task with id %s because it's in the state %s!!\n" % (archiveId, archiveState)
+            else:
+                print "Nothing to Archive!!!\n"
 
 
